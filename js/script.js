@@ -6,6 +6,7 @@ const rows = 25;
 const cols = 25;
 let board;
 let context;
+let scorePoints = 0;
 
 ////Snake
 //Head
@@ -22,6 +23,7 @@ let foodX;
 let foodY;
 
 let gameOver = false;
+let score = document.getElementById("score");
 
 //Playground
 window.onload = function () {
@@ -52,6 +54,8 @@ function update() {
   if (snakeX == foodX && snakeY == foodY) {
     snakeBody.push([foodX, foodY]);
     placeFood();
+    scorePoints++;
+    score.innerHTML = `Score: ${scorePoints}`;
   }
 
   //Snake
