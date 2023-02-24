@@ -11,6 +11,8 @@ let context;
 //Head
 let snakeX = blockSize * 5;
 let snakeY = blockSize * 5;
+//Body
+let snakeBody = [];
 //Velocity
 let velocityX = 0;
 let velocityY = 0;
@@ -18,6 +20,8 @@ let velocityY = 0;
 //Food
 let foodX;
 let foodY;
+
+let gameOver = false;
 
 //Playground
 window.onload = function () {
@@ -32,6 +36,11 @@ window.onload = function () {
 }
 
 function update() {
+  if (gameOver) {
+    alert("Game over");
+    return;
+  }
+
   //Board
   context.fillStyle = "black";
   context.fillRect(0, 0, board.width, board.height);
@@ -41,16 +50,41 @@ function update() {
   context.fillRect(foodX, foodY, blockSize, blockSize)
 
   if (snakeX == foodX && snakeY == foodY) {
+    snakeBody.push([foodX, foodY]);
     placeFood();
   }
 
   //Snake
+  for (let i = snakeBody.length - 1; i > 0; i--) {
+    snakeBody[i] = snakeBody[i - 1];
+  }
+  if (snakeBody.length) {
+    snakeBody[0] = [snakeX, snakeY];
+  }
+
   context.fillStyle = "lime"
   snakeX += velocityX * blockSize;
   snakeY += velocityY * blockSize;
   context.fillRect(snakeX, snakeY, blockSize, blockSize)
+
+  for (let i = 0; i < snakeBody.length; i++) {
+    context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+  }
+
+
+  if (snakeX < 0 || snakeX > cols * blockSize || snakeY < 0 || snakeY > rows * blockSize) {
+    gameOver = true;
+  }
+
+  for (let i = 0; i < snakeBody.length; i++) {
+    if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
+      gameOver = true;
+    }
+  }
 }
 
+
+//Placing food function
 function placeFood() {
   foodX = Math.floor(Math.random() * cols) * blockSize;
   foodY = Math.floor(Math.random() * rows) * blockSize;
