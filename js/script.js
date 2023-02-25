@@ -45,7 +45,9 @@ function update() {
   if (gameOver) {
     context.font = "50px sans-serif";
     context.fillStyle = "red";
-    context.fillText("Game over", (cols * blockSize) / 2 - 125, 7 * blockSize, 250);
+    context.fillText("Game over", (cols * blockSize) / 2 - 125, 8 * blockSize, 250);
+    context.fillText(`Score: ${scorePoints}`, (cols * blockSize) / 2 - 125, 10 * blockSize, 250);
+    context.fillText(`Time: ${gameTime}s`, (cols * blockSize) / 2 - 125, 12 * blockSize);
     return;
   }
   gameTime++;
@@ -55,7 +57,7 @@ function update() {
   context.fillRect(0, 0, board.width, board.height);
 
   //Food
-  context.fillStyle = "red";
+  context.fillStyle = "tomato";
   context.fillRect(foodX, foodY, blockSize, blockSize)
 
   if (snakeX == foodX && snakeY == foodY) {
