@@ -7,6 +7,7 @@ const cols = 25;
 let board;
 let context;
 let scorePoints = 0;
+let isPressed = true;
 
 ////Snake
 //Head
@@ -33,7 +34,9 @@ window.onload = function () {
   context = board.getContext("2d");
 
   placeFood();
-  document.addEventListener("keydown", changeDirection);
+  if (isPressed) {
+    document.addEventListener("keydown", changeDirection);
+  }
   setInterval(update, 1000 / 10);
 }
 
@@ -98,17 +101,21 @@ function changeDirection(e) {
   if (e.code == "ArrowUp" && velocityY != 1) {
     velocityX = 0;
     velocityY = -1;
+    isPressed = true;
   }
   else if (e.code == "ArrowDown" && velocityY != -1) {
     velocityX = 0;
     velocityY = 1;
+    isPressed = true;
   }
   else if (e.code == "ArrowLeft" && velocityX != 1) {
     velocityX = -1;
     velocityY = 0;
+    isPressed = true;
   }
   else if (e.code == "ArrowRight" && velocityX != -1) {
     velocityX = 1;
     velocityY = 0;
+    isPressed = true;
   }
 }
