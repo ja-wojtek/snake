@@ -8,6 +8,7 @@ let board;
 let context;
 let scorePoints = 0;
 let isPressed = false;
+let gameTime = 0;
 
 ////Snake
 //Head
@@ -34,7 +35,7 @@ window.onload = function () {
   context = board.getContext("2d");
 
   placeFood();
-  if (isPressed === false) {
+  if (isPressed == false) {
     document.addEventListener("keydown", changeDirection);
   }
   setInterval(update, 1000 / 10);
@@ -42,9 +43,12 @@ window.onload = function () {
 
 function update() {
   if (gameOver) {
-    alert("Game over");
+    context.font = "50px sans-serif";
+    context.fillStyle = "red";
+    context.fillText("Game over", (cols * blockSize) / 2 - 125, 7 * blockSize, 250);
     return;
   }
+  gameTime++;
 
   //Board
   context.fillStyle = "black";
@@ -75,6 +79,7 @@ function update() {
   context.fillRect(snakeX, snakeY, blockSize, blockSize)
 
   for (let i = 0; i < snakeBody.length; i++) {
+    context.fillStyle = "green";
     context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
   }
 
@@ -91,32 +96,34 @@ function update() {
   isPressed = false;
 }
 
-
 //Placing food function
 function placeFood() {
   foodX = Math.floor(Math.random() * cols) * blockSize;
   foodY = Math.floor(Math.random() * rows) * blockSize;
 }
 
+//Keyboard control
 function changeDirection(e) {
-  if (e.code == "ArrowUp" && velocityY != 1) {
-    velocityX = 0;
-    velocityY = -1;
-    isPressed = true;
-  }
-  else if (e.code == "ArrowDown" && velocityY != -1) {
-    velocityX = 0;
-    velocityY = 1;
-    isPressed = true;
-  }
-  else if (e.code == "ArrowLeft" && velocityX != 1) {
-    velocityX = -1;
-    velocityY = 0;
-    isPressed = true;
-  }
-  else if (e.code == "ArrowRight" && velocityX != -1) {
-    velocityX = 1;
-    velocityY = 0;
-    isPressed = true;
+  if (isPressed == false) {
+    if (e.code == "ArrowUp" && velocityY != 1) {
+      velocityX = 0;
+      velocityY = -1;
+      isPressed = true;
+    }
+    else if (e.code == "ArrowDown" && velocityY != -1) {
+      velocityX = 0;
+      velocityY = 1;
+      isPressed = true;
+    }
+    else if (e.code == "ArrowLeft" && velocityX != 1) {
+      velocityX = -1;
+      velocityY = 0;
+      isPressed = true;
+    }
+    else if (e.code == "ArrowRight" && velocityX != -1) {
+      velocityX = 1;
+      velocityY = 0;
+      isPressed = true;
+    }
   }
 }
