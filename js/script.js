@@ -3,8 +3,8 @@
 ////////////////////////////////
 
 const blockSize = 25;
-const rows = 25;
-const cols = 25;
+const rows = 8;
+const cols = 8;
 let board;
 let context;
 let isPressed = false;
@@ -99,8 +99,24 @@ function update() {
 
 //Placing food function
 function placeFood() {
-  foodX = Math.floor(Math.random() * cols) * blockSize;
-  foodY = Math.floor(Math.random() * rows) * blockSize;
+  let isFood;
+  let tempFoodX;
+  let tempFoodY;
+  //checking not to place food inside snake's body
+  do {
+    isFood = true;
+    tempFoodX = Math.floor(Math.random() * cols) * blockSize;
+    tempFoodY = Math.floor(Math.random() * rows) * blockSize;
+
+    for (let i = 0; i < snakeBody.length; i++) {
+      if (tempFoodX == snakeBody[i][0] && tempFoodY == snakeBody[i][1]) {
+        isFood = false;
+      }
+    }
+  } while (isFood = false)
+  foodX = tempFoodX;
+  foodY = tempFoodY;
+
 }
 
 //Keyboard control
