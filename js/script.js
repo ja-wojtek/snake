@@ -7,7 +7,7 @@ const cols = 25;
 let board;
 let context;
 let scorePoints = 0;
-let isPressed = true;
+let isPressed = false;
 
 ////Snake
 //Head
@@ -34,7 +34,7 @@ window.onload = function () {
   context = board.getContext("2d");
 
   placeFood();
-  if (isPressed) {
+  if (isPressed === false) {
     document.addEventListener("keydown", changeDirection);
   }
   setInterval(update, 1000 / 10);
@@ -88,6 +88,7 @@ function update() {
       gameOver = true;
     }
   }
+  isPressed = false;
 }
 
 
