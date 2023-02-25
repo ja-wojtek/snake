@@ -1,13 +1,16 @@
-console.log(`It's nice to say hello.`)
-
+////////////////////////////////
+//////     SNAKE GAME     ////// 
+////////////////////////////////
 
 const blockSize = 25;
 const rows = 25;
 const cols = 25;
 let board;
 let context;
-let scorePoints = 0;
 let isPressed = false;
+let gameOver = false;
+let score = document.getElementById("score");
+let scorePoints = 0;
 let gameTime = 0;
 
 ////Snake
@@ -24,10 +27,6 @@ let velocityY = 0;
 let foodX;
 let foodY;
 
-let gameOver = false;
-let score = document.getElementById("score");
-
-//Playground
 window.onload = function () {
   board = document.querySelector(".board");
   board.height = rows * blockSize;
@@ -38,25 +37,25 @@ window.onload = function () {
   if (isPressed == false) {
     document.addEventListener("keydown", changeDirection);
   }
-  setInterval(update, 1000 / 10);
+  setInterval(update, 100);
 }
 
 function update() {
   if (gameOver) {
     context.font = "50px sans-serif";
     context.fillStyle = "red";
-    context.fillText("Game over", (cols * blockSize) / 2 - 125, 8 * blockSize, 250);
-    context.fillText(`Score: ${scorePoints}`, (cols * blockSize) / 2 - 125, 10 * blockSize, 250);
-    context.fillText(`Time: ${gameTime}s`, (cols * blockSize) / 2 - 125, 12 * blockSize);
+    context.fillText("Game over", (cols * blockSize) / 2 - 125, 10 * blockSize, 250);
+    context.fillText(`Score: ${scorePoints}`, (cols * blockSize) / 2 - 125, 12 * blockSize, 250);
+    context.fillText(`Time: ${gameTime / 10}s`, (cols * blockSize) / 2 - 125, 14 * blockSize);
     return;
   }
   gameTime++;
 
-  //Board
+  //Drawing board
   context.fillStyle = "black";
   context.fillRect(0, 0, board.width, board.height);
 
-  //Food
+  //Drawing food
   context.fillStyle = "tomato";
   context.fillRect(foodX, foodY, blockSize, blockSize)
 
@@ -85,7 +84,6 @@ function update() {
     context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
   }
 
-
   if (snakeX < 0 || snakeX >= cols * blockSize || snakeY < 0 || snakeY >= rows * blockSize) {
     gameOver = true;
   }
@@ -96,6 +94,7 @@ function update() {
     }
   }
   isPressed = false;
+  snakeSegments(); // Creating snake's segments
 }
 
 //Placing food function
@@ -127,5 +126,17 @@ function changeDirection(e) {
       velocityY = 0;
       isPressed = true;
     }
+  }
+}
+
+function snakeSegments() {
+  //Creating snake's segments. Drawing net after drawing snake and food.
+  for (let i = 0; i <= cols; i++) {
+    context.fillStyle = "black";
+    context.fillRect(i * blockSize, 0, 1, rows * blockSize)
+  }
+  for (let i = 0; i <= rows; i++) {
+    context.fillStyle = "black";
+    context.fillRect(0, i * blockSize, cols * blockSize, 1)
   }
 }
