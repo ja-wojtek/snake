@@ -3,8 +3,8 @@
 ////////////////////////////////
 
 const blockSize = 25;
-const rows = 8;
-const cols = 8;
+const rows = 25;
+const cols = 25;
 let board;
 let context;
 let isPressed = false;
