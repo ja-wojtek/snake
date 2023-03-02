@@ -8,9 +8,11 @@ const cols = 25;
 let board;
 let context;
 let isPressed = false;
+let isGameOn = false;
 let gameOver = false;
 let score = document.getElementById("score");
 let scorePoints = 0;
+let time = document.getElementById("time");
 let gameTime = 0;
 
 ////Snake
@@ -49,7 +51,12 @@ function update() {
     context.fillText(`Time: ${gameTime / 10}s`, (cols * blockSize) / 2 - 125, 14 * blockSize);
     return;
   }
-  gameTime++;
+
+  //Start timer
+  if (velocityX != 0 || velocityY != 0) {
+    gameTime++;
+  }
+  time.innerHTML = `Time: ${Math.floor(gameTime / 10)}s`;
 
   //Drawing board
   context.fillStyle = "black";
