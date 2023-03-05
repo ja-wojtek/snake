@@ -14,6 +14,7 @@ let score = document.getElementById("score");
 let scorePoints = 0;
 let time = document.getElementById("time");
 let gameTime = 0;
+let isPaused = false;
 
 ////Snake
 //Head
@@ -29,6 +30,8 @@ let velocityY = 0;
 let foodX;
 let foodY;
 
+let game = setInterval(update, 100);
+
 window.onload = function () {
   board = document.querySelector(".board");
   board.height = rows * blockSize;
@@ -39,7 +42,7 @@ window.onload = function () {
   if (isPressed == false) {
     document.addEventListener("keydown", changeDirection);
   }
-  setInterval(update, 100);
+  document.addEventListener("keydown", gamePause);
 }
 
 function update() {
@@ -51,6 +54,8 @@ function update() {
     context.fillText(`Time: ${gameTime / 10}s`, (cols * blockSize) / 2 - 125, 14 * blockSize);
     return;
   }
+
+
 
   //Start timer
   if (velocityX != 0 || velocityY != 0) {
@@ -102,6 +107,7 @@ function update() {
   }
   isPressed = false;
   snakeSegments(); // Creating snake's segments
+
 }
 
 //Placing food function
@@ -149,6 +155,17 @@ function changeDirection(e) {
       velocityY = 0;
       isPressed = true;
     }
+  }
+}
+
+function gamePause(e) {
+  if (e.code == "Space" && isPaused == false) {
+    isPaused = true;
+    clearInterval(game);
+  }
+  else if (e.code == "Space" && isPaused == true) {
+    isPaused = false;
+    game = setInterval(update, 100);
   }
 }
 
