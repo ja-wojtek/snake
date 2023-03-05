@@ -161,6 +161,9 @@ function changeDirection(e) {
 function gamePause(e) {
   if (e.code == "Space" && isPaused == false) {
     isPaused = true;
+    context.font = "100px sans-serif";
+    context.fillStyle = "green";
+    context.fillText("PAUSE", (cols * blockSize) / 2 - 150, 14 * blockSize, 300);
     clearInterval(game);
   }
   else if (e.code == "Space" && isPaused == true) {
