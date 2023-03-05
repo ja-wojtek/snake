@@ -14,6 +14,7 @@ let score = document.getElementById("score");
 let scorePoints = 0;
 let time = document.getElementById("time");
 let gameTime = 0;
+let restart = document.getElementById("btn-restart");
 let isPaused = false;
 
 ////Snake
@@ -43,6 +44,7 @@ window.onload = function () {
     document.addEventListener("keydown", changeDirection);
   }
   document.addEventListener("keydown", gamePause);
+  restart.addEventListener("click", restartGame);
 }
 
 function update() {
@@ -54,8 +56,6 @@ function update() {
     context.fillText(`Time: ${gameTime / 10}s`, (cols * blockSize) / 2 - 125, 14 * blockSize);
     return;
   }
-
-
 
   //Start timer
   if (velocityX != 0 || velocityY != 0) {
@@ -170,6 +170,12 @@ function gamePause(e) {
     isPaused = false;
     game = setInterval(update, 100);
   }
+}
+
+function restartGame() {
+  console.log("KLIK");
+  location.reload();
+  return false;
 }
 
 function snakeSegments() {
