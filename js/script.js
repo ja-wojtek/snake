@@ -107,6 +107,11 @@ function update() {
   }
   isPressed = false;
   snakeSegments(); // Creating snake's segments
+  if (gameTime == 0) {
+    context.font = "50px sans-serif";
+    context.fillStyle = "red";
+    context.fillText("Press any arrow to start", (cols * blockSize) / 2 - 125, 10 * blockSize, 250);
+  }
 
 }
 
