@@ -164,7 +164,7 @@ function changeDirection(e) {
 }
 
 function gamePause(e) {
-  if (e.code == "Space" && isPaused == false && gameTime > 0) {
+  if (e.code == "Space" && isPaused == false && gameTime > 0 && gameOver == false) {
     isPaused = true;
     context.font = "100px sans-serif";
     context.fillStyle = "green";
