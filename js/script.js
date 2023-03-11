@@ -19,8 +19,8 @@ let isPaused = false;
 
 ////Snake
 //Head
-let snakeX = blockSize * 5;
-let snakeY = blockSize * 5;
+let snakeX = blockSize * 12;
+let snakeY = blockSize * 12;
 //Body
 let snakeBody = [];
 //Velocity
